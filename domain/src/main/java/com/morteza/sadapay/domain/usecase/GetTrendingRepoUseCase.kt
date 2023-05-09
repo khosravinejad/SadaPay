@@ -10,9 +10,11 @@ import kotlinx.coroutines.flow.flow
 class GetTrendingRepoUseCase(private val trendingRepository: TrendingRepository) :
     BaseUseCase<GetTrendingRepoUseCase.TrendingRepoUseCaseParams, Flow<GetTrendingRepoUseCase.Result>> {
 
-    override suspend fun invoke(params: TrendingRepoUseCaseParams): Flow<Result> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun invoke(params: TrendingRepoUseCaseParams): Flow<Result> = flow<Result> {
+        trendingRepository.getTrendingRepositories(params.forceRefresh).collect {
+            emit(Result.Success(it))
+        }
+    }.catch { e -> emit(Result.Error(e)) }
 
     data class TrendingRepoUseCaseParams(val forceRefresh: Boolean = false)
 
