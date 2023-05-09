@@ -5,11 +5,20 @@ import com.morteza.sadapay.presentation.model.GithubRepoOwnerPresentationModel
 
 class GithubRepoOwnerDomainPresentationMapper :
     DomainPresentationMapper<GithubRepoOwnerDomainModel, GithubRepoOwnerPresentationModel>() {
+
     override fun mapToPresentation(input: GithubRepoOwnerDomainModel): GithubRepoOwnerPresentationModel {
-        TODO("Not yet implemented")
+        return GithubRepoOwnerPresentationModel(
+            id = input.id,
+            name = input.name,
+            avatarUrl = input.avatarUrl
+        )
     }
 
     override fun mapToDomain(input: GithubRepoOwnerPresentationModel): GithubRepoOwnerDomainModel {
-        TODO("Not yet implemented")
+        return GithubRepoOwnerDomainModel(
+            id = input.id,
+            name = input.name,
+            avatarUrl = input.avatarUrl
+        )
     }
 }

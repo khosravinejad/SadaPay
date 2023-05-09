@@ -7,12 +7,28 @@ class GithubRepoDomainPresentationMapper(
     private val ownerDomainPresentationMapper: GithubRepoOwnerDomainPresentationMapper
 ) :
     DomainPresentationMapper<GithubRepoDomainModel, GithubRepoPresentationModel>() {
+
     override fun mapToPresentation(input: GithubRepoDomainModel): GithubRepoPresentationModel {
-        TODO("Not yet implemented")
+        return GithubRepoPresentationModel(
+            id = input.id,
+            name = input.name,
+            fullName = input.fullName,
+            description = input.description,
+            language = input.language,
+            starsCount = input.starsCount,
+            owner = ownerDomainPresentationMapper.mapToPresentation(input.owner)
+        )
     }
 
     override fun mapToDomain(input: GithubRepoPresentationModel): GithubRepoDomainModel {
-        TODO("Not yet implemented")
+        return GithubRepoDomainModel(
+            id = input.id,
+            name = input.name,
+            fullName = input.fullName,
+            description = input.description,
+            language = input.language,
+            starsCount = input.starsCount,
+            owner = ownerDomainPresentationMapper.mapToDomain(input.owner)
+        )
     }
-
 }
