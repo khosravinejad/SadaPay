@@ -1,4 +1,4 @@
-package com.morteza.sadapay.presentation.util
+package com.morteza.sadapay.presentation.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

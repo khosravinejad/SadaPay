@@ -2,7 +2,7 @@ package com.morteza.sadapay.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.morteza.sadapay.presentation.util.CoroutineContextProvider
+import com.morteza.sadapay.presentation.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
