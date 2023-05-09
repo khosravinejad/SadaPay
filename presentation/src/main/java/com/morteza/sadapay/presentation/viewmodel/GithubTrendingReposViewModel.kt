@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import java.io.IOException
 import javax.inject.Inject
 
 // We can define different error type here
@@ -44,10 +46,37 @@ class GithubTrendingReposViewModel @Inject constructor(
     val refreshingState: StateFlow<Boolean> = _refreshingState
 
     fun fetchGithubTrendingRepos(forceRefresh: Boolean = false) {
-        TODO("Not yet implemented")
+        if (forceRefresh) {
+            _refreshingState.value = true
+        } else {
+            _githubTrendingReposState.value = GithubTrendingReposState.Loading
+        }
+        launchCoroutineIO {
+            getTrendingRepoUseCase.invoke(
+                GetTrendingRepoUseCase.TrendingRepoUseCaseParams(forceRefresh)
+            ).collectLatest { result ->
+                when (result) {
+                    is GetTrendingRepoUseCase.Result.Success -> {
+                        _refreshingState.value = false
+                        _githubTrendingReposState.value = GithubTrendingReposState.Success(
+                            result.data.map {
+                                githubRepoDomainToPresenterMapper.mapToPresentation(it)
+                            }
+                        )
+                    }
+                    is GetTrendingRepoUseCase.Result.Error -> {
+                        _githubTrendingReposState.value =
+                            GithubTrendingReposState.Error(handleUseCaseError(result.exception))
+                    }
+                }
+            }
+        }
     }
 
     private fun handleUseCaseError(throwable: Throwable): GithubTrendingReposError {
-        TODO("Not yet implemented")
+        return when (throwable) {
+            is IOException -> GithubTrendingReposError.NetworkError
+            else -> GithubTrendingReposError.UnknownError(throwable.message)
+        }
     }
 }
