@@ -1,0 +1,53 @@
+ext {
+    // Do NOT use these directly in the modules. Use dependencies_module.gradle
+
+    // AndroidX
+    androidx_core = "androidx.core:core-ktx:$androidx_core_version"
+    androidx_lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
+    androidx_hilt = "androidx.hilt:hilt-navigation-compose:$androidx_hilt_version"
+    androidx_hilt_compiler = "androidx.hilt:hilt-compiler:$androidx_hilt_compiler_version"
+
+    // Coroutines
+    kotlinx_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+
+    // Jetpack Components
+    compose_activity = "androidx.activity:activity-compose:$compose_activity_version"
+    compose_ui = "androidx.compose.ui:ui:$compose_ui_version"
+    compose_ui_tooling_preview = "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    compose_material = "androidx.compose.material:material:$androidx_material_version"
+    compose_animation = "androidx.compose.animation:animation:$compose_animation_version"
+    room = "androidx.room:room-runtime:$room_version"
+    room_compiler = "androidx.room:room-compiler:$room_version"
+    room_ktx = "androidx.room:room-ktx:$room_version"
+    lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
+    navigation_compose = "androidx.navigation:navigation-compose:2.5.3"
+
+    // Network
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
+    retrofit_converter = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    okhttp = "com.squareup.okhttp3:okhttp:$okhttp_version"
+    okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // DI
+    hilt = "com.google.dagger:hilt-android:$hilt_version"
+    hilt_compiler = "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Other libraries
+    gson = "com.google.code.gson:gson:$gson_version"
+    coil = "io.coil-kt:coil-compose:$coil_version"
+    lottie = "com.airbnb.android:lottie-compose:$lottie_version"
+
+    // Test
+    junit = "junit:junit:$junit_version"
+    androidx_junit = "androidx.test.ext:junit:$androidx_test_junit_version"
+    androidx_test_runner = "androidx.test:runner:$androidx_test_runner_version"
+    mockito_core = "org.mockito:mockito-core:$mockito_version"
+    mockito_inline = "org.mockito:mockito-inline:$mockito_version"
+    mockito_kotlin = "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin_version"
+    androidx_test_core = "androidx.test:core:$androidx_test_core_version"
+    androidx_arc = "androidx.arch.core:core-testing:$androidx_arc_testing_version"
+    kotlinx_coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+    espresso_core = "androidx.test.espresso:espresso-core:$espresso_core_version"
+    robolectric = "org.robolectric:robolectric:$robolectric_version"
+    room_test = "androidx.room:room-testing:$room_version"
+}

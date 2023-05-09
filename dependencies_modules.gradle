@@ -1,0 +1,85 @@
+ext {
+    // Put required dependencies for each modules here
+    appImplementationDependencies = [
+            androidx_core,
+            androidx_lifecycle,
+            compose_activity,
+            compose_ui,
+            compose_ui_tooling_preview,
+            compose_material,
+            hilt,
+            retrofit,
+            retrofit_converter,
+            okhttp,
+            okhttp_logging_interceptor,
+            gson,
+            room,
+            room_ktx
+    ]
+    appKaptDependencies = [
+            hilt_compiler,
+            room_compiler
+    ]
+
+    domainImplemetationDependencies = [
+            kotlinx_coroutines
+    ]
+
+    dataImplementationDependencies = [
+            retrofit,
+            gson,
+            kotlinx_coroutines,
+            room,
+            room_ktx
+    ]
+    dataKaptDependencies = [
+            room_compiler
+    ]
+
+    presentationImplementationDependencies = [
+            hilt,
+            lifecycle_viewmodel
+    ]
+    presentationKaptDependencies = [
+            hilt_compiler
+    ]
+
+    uiImplementationDependencies = [
+            androidx_core,
+            androidx_lifecycle,
+            compose_activity,
+            compose_ui,
+            compose_ui_tooling_preview,
+            compose_material,
+            compose_animation,
+            navigation_compose,
+            hilt,
+            androidx_hilt,
+            coil,
+            lottie
+    ]
+    uiKaptDependencies = [
+            hilt_compiler,
+            androidx_hilt_compiler
+    ]
+
+    testDependencies = [
+            junit,
+            mockito_core,
+            mockito_inline,
+            mockito_kotlin,
+            androidx_test_core,
+            androidx_arc,
+            kotlinx_coroutines_test,
+            androidx_test_runner,
+            robolectric
+    ]
+    androidTestDependencies = [
+            junit,
+            androidx_junit,
+            androidx_arc,
+            androidx_test_core,
+            kotlinx_coroutines_test,
+            espresso_core
+    ]
+}
