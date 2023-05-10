@@ -3,11 +3,9 @@ package com.morteza.sadapay.ui.trending
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -17,12 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.morteza.sadapay.presentation.model.GithubRepoPresentationModel
+import com.morteza.sadapay.ui.R
 import com.morteza.sadapay.ui.theme.Gray
 
 @Composable
@@ -78,19 +79,38 @@ fun GithubRepoItem(repository: GithubRepoPresentationModel) {
                             text = repository.description,
                             style = MaterialTheme.typography.body2,
                             maxLines = 5,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis,
                         )
                         Row(
                             modifier = Modifier.padding(top = 8.dp)
                         ) {
-                            Text(
-                                text = "Language: ${repository.language}",
-                                style = MaterialTheme.typography.body2,
-                                modifier = Modifier.padding(end = 8.dp)
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(Color.Green)
+                                    .align(Alignment.CenterVertically)
                             )
                             Text(
-                                text = "Stars: ${repository.starsCount}",
+                                text = repository.language,
                                 style = MaterialTheme.typography.body2,
+                                modifier = Modifier
+                                    .padding(start = 4.dp, end = 12.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.star_rate),
+                                contentDescription = "SVG Icon",
+                                modifier = Modifier
+                                    .size(18.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
+                            Text(
+                                text = repository.starsCount.toString(),
+                                style = MaterialTheme.typography.body2,
+                                modifier = Modifier
+                                    .padding(start = 4.dp)
+                                    .align(Alignment.CenterVertically)
                             )
                         }
                     }
