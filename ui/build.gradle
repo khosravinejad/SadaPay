@@ -40,5 +40,8 @@ android {
 dependencies {
     implementation uiImplementationDependencies
     kapt uiKaptDependencies
+    testImplementation testDependencies
+    androidTestImplementation androidTestDependencies
+    debugImplementation uiDebugImplementationDependencies
     implementation(project(":presentation"))
 }

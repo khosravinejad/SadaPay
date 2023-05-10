@@ -53,6 +53,7 @@ ext {
             compose_material,
             compose_animation,
             navigation_compose,
+            accompanist_placeholder,
             hilt,
             androidx_hilt,
             coil,
@@ -61,6 +62,9 @@ ext {
     uiKaptDependencies = [
             hilt_compiler,
             androidx_hilt_compiler
+    ]
+    uiDebugImplementationDependencies = [
+            compose_manifest
     ]
 
     testDependencies = [
@@ -80,6 +84,7 @@ ext {
             androidx_arc,
             androidx_test_core,
             kotlinx_coroutines_test,
-            espresso_core
+            espresso_core,
+            androidx_junit_compose
     ]
 }

@@ -30,6 +30,7 @@ ext {
     compose_activity_version = '1.7.1'
     compose_animation_version = "1.4.3"
     room_version = '2.5.1'
+    accompanist_placeholder_version = '0.31.1-alpha'
 
     // Network
     retrofit_version = "2.9.0"
