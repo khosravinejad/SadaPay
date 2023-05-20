@@ -2,14 +2,12 @@ package com.morteza.sadapay.data.repository
 
 import com.morteza.sadapay.data.mapper.GithubRepoApiToCacheMapper
 import com.morteza.sadapay.data.mapper.GithubRepoCacheToDomainMapper
-import com.morteza.sadapay.data.source.local.AppDatabase
 import com.morteza.sadapay.data.source.local.dao.GithubRepoDao
 import com.morteza.sadapay.data.source.remote.RepoApiServices
 import com.morteza.sadapay.data.utils.SystemTimestampGenerator
 import com.morteza.sadapay.domain.model.GithubRepoDomainModel
 import com.morteza.sadapay.domain.repository.TrendingRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class TrendingRepositoryImpl(
@@ -28,20 +26,17 @@ class TrendingRepositoryImpl(
         }
     }
 
-    override suspend fun getTrendingRepositories(forceRefresh: Boolean): Flow<List<GithubRepoDomainModel>> =
-        flow {
-            val cacheTimestamp = githubRepoDao.getLastUpdatedTimestamp()
-            if (forceRefresh || cacheTimestamp == null || isDataStale(cacheTimestamp)) {
-                // Fetch fresh data from API and update cache
-                val apiResponse = apiServices.getGithubRepos()
-                val newRepos = apiToCacheMapper.mapFromList(apiResponse.repositories)
-                githubRepoDao.clearTable()
-                githubRepoDao.insertRepositories(newRepos)
-            }
-            cachedReposFlow.collect {
-                emit(it)
-            }
+    override suspend fun getTrendingRepositories(forceRefresh: Boolean): Flow<List<GithubRepoDomainModel>> {
+        val cacheTimestamp = githubRepoDao.getLastUpdatedTimestamp()
+        if (forceRefresh || cacheTimestamp == null || isDataStale(cacheTimestamp)) {
+            // Fetch fresh data from API and update cache
+            val apiResponse = apiServices.getGithubRepos()
+            val newRepos = apiToCacheMapper.mapFromList(apiResponse.repositories)
+            githubRepoDao.clearTable()
+            githubRepoDao.insertRepositories(newRepos)
         }
+        return cachedReposFlow
+    }
 
     private fun isDataStale(timestamp: Long): Boolean {
         val timeDifferenceMs = timestampGenerator.generateTimestamp() - timestamp

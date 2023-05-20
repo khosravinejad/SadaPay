@@ -4,17 +4,16 @@ import com.morteza.sadapay.domain.model.GithubRepoDomainModel
 import com.morteza.sadapay.domain.repository.TrendingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class GetTrendingRepoUseCase(private val trendingRepository: TrendingRepository) :
     BaseUseCase<GetTrendingRepoUseCase.TrendingRepoUseCaseParams, Flow<GetTrendingRepoUseCase.Result>> {
 
-    override suspend fun invoke(params: TrendingRepoUseCaseParams): Flow<Result> = flow<Result> {
-        trendingRepository.getTrendingRepositories(params.forceRefresh).collect {
-            emit(Result.Success(it))
-        }
-    }.catch { e -> emit(Result.Error(e)) }
+    override suspend fun invoke(params: TrendingRepoUseCaseParams): Flow<Result> {
+        return trendingRepository.getTrendingRepositories(params.forceRefresh).map {
+            Result.Success(it)
+        }.catch { e -> Result.Error(e) }
+    }
 
     data class TrendingRepoUseCaseParams(val forceRefresh: Boolean = false)
 
