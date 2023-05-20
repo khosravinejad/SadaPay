@@ -1,6 +1,7 @@
 package com.morteza.sadapay.presentation.viewmodel
 
 import com.morteza.sadapay.domain.usecase.GetTrendingRepoUseCase
+import com.morteza.sadapay.domain.usecase.SearchRepositoriesUseCase
 import com.morteza.sadapay.presentation.base.BaseViewModel
 import com.morteza.sadapay.presentation.mapper.GithubRepoDomainPresentationMapper
 import com.morteza.sadapay.presentation.model.GithubRepoPresentationModel
@@ -29,6 +30,7 @@ sealed class GithubTrendingReposState {
 class GithubTrendingReposViewModel @Inject constructor(
     contextProvider: CoroutineContextProvider,
     private val getTrendingRepoUseCase: GetTrendingRepoUseCase,
+    private val searchRepositoriesUseCase: SearchRepositoriesUseCase,
     private val githubRepoDomainToPresenterMapper: GithubRepoDomainPresentationMapper
 ) : BaseViewModel(contextProvider) {
     override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -70,6 +72,7 @@ class GithubTrendingReposViewModel @Inject constructor(
                     }
                 }
             }
+
         }
     }
 

@@ -14,6 +14,7 @@ import com.morteza.sadapay.data.utils.FakeData
 import com.morteza.sadapay.data.utils.SystemTimestampGenerator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -22,6 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.given
 import org.robolectric.RobolectricTestRunner
 import java.io.IOException
@@ -158,5 +160,25 @@ class TrendingRepositoryImplTest {
             verify(apiServices).getGithubRepos()
             verify(githubRepoDao).clearTable()
             verify(githubRepoDao).insertRepositories(emptyList())
+        }
+
+    @Test
+    fun `searchRepositories returns filtered repositories`() =
+        runTest {
+            // Arrange
+
+            val query = "repo fullName 1"
+            val cachedRepos = FakeData.fakeCachedGithubRepos()
+            val filteredRepos = FakeData.fakeGithubReposDomainModel(1)
+
+            given(githubRepoDao.getRepositories()).willReturn(flowOf(cachedRepos))
+            given(cacheToDomainMapper.mapFromList(anyOrNull())).willReturn(filteredRepos)
+
+            // Act
+            val result = sut.searchRepositories(query).first()
+
+            // Assert
+            verify(githubRepoDao).getRepositories()
+            assertEquals(filteredRepos, result)
         }
 }

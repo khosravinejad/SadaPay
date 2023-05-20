@@ -4,5 +4,6 @@ import com.morteza.sadapay.domain.model.GithubRepoDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface TrendingRepository {
-    suspend fun getTrendingRepositories(forceRefresh: Boolean = false): Flow<List<GithubRepoDomainModel>>
+    fun getTrendingRepositories(forceRefresh: Boolean = false): Flow<List<GithubRepoDomainModel>>
+    fun searchRepositories(query: String): Flow<List<GithubRepoDomainModel>>
 }
